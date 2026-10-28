@@ -38,20 +38,7 @@ as $$
     set scores = excluded.scores, comment = excluded.comment, submitted_at = now();
 $$;
 
--- 결과 조회 (관리자 코드가 맞을 때만 응답을 돌려줌, 응답자 번호는 돌려주지 않음)
-create or replace function public.training_survey_results(p_code text)
-returns table (scores smallint[], comment text, submitted_at timestamptz)
-language sql
-security definer
-set search_path = public
-as $$
-  select r.scores, r.comment, r.submitted_at
-  from training_survey_responses r
-  where exists (select 1 from training_survey_admin a where a.code = p_code and a.code <> 'CHANGE-ME')
-  order by r.submitted_at;
-$$;
-
 revoke all on function public.submit_training_survey(uuid, smallint[], text) from public;
-revoke all on function public.training_survey_results(text) from public;
 grant execute on function public.submit_training_survey(uuid, smallint[], text) to anon, authenticated;
-grant execute on function public.training_survey_results(text) to anon, authenticated;
+
+-- 결과 조회·응답 삭제 함수는 supabase-update-delete.sql 에 있습니다. 이어서 그 파일도 실행하세요.

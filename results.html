@@ -25,8 +25,13 @@
 .legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--muted); }
 .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; background: var(--c); vertical-align: -1px; }
 .comments { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
-.comments li { background: var(--bg); border-radius: 8px; padding: 10px 12px; white-space: pre-wrap; }
-.comments time { display: block; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.comments li { background: var(--bg); border-radius: 8px; padding: 10px 12px; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: start; }
+.comments .txt { white-space: pre-wrap; min-width: 0; overflow-wrap: anywhere; }
+.comments .meta { grid-column: 1; font-size: 12px; color: var(--muted); }
+.comments .del { grid-row: 1 / span 2; grid-column: 2; font: 500 13px var(--body); padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; white-space: nowrap; }
+.comments .del:hover { color: var(--warn); border-color: var(--warn); }
+.comments .del.arm { background: var(--warn); border-color: var(--warn); color: #fff; }
+.comments .del:disabled { opacity: .5; cursor: default; }
 .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
 </style>
 </head>
@@ -52,7 +57,8 @@
     <div class="legend" id="legend"></div>
     <div id="sections" style="display:grid;gap:22px"></div>
     <section class="panel" style="display:grid;gap:12px">
-      <h2>기타 의견 <small id="ccount" style="font-family:var(--body);font-size:13px;color:var(--muted)"></small></h2>
+      <p class="status" style="margin:0">잘못 들어온 응답은 '삭제'를 두 번 눌러 지울 수 있어요. 지운 응답은 되살릴 수 없습니다.</p>
+      <h2>응답 목록 · 기타 의견 <small id="ccount" style="font-family:var(--body);font-size:13px;color:var(--muted)"></small></h2>
       <ul class="comments" id="comments"></ul>
     </section>
   </div>
@@ -122,10 +128,37 @@ function render() {
 
   $("ccount").textContent = `(${n}건)`;
   $("comments").replaceChildren(...rows.slice().reverse().map((r) => {
-    const li = document.createElement("li"); li.textContent = r.comment;
-    const tm = document.createElement("time"); tm.textContent = new Date(r.submitted_at).toLocaleString("ko-KR");
-    li.append(tm); return li;
+    const li = document.createElement("li");
+    const txt = document.createElement("div"); txt.className = "txt"; txt.textContent = r.comment;
+    const meta = document.createElement("div"); meta.className = "meta";
+    meta.textContent = `${new Date(r.submitted_at).toLocaleString("ko-KR")} · 평균 ${fmt(mean(r.scores))}점 · 점수 ${r.scores.join(" ")}`;
+    const del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "삭제";
+    let timer = null;
+    del.onclick = async () => {
+      if (!del.classList.contains("arm")) {
+        del.classList.add("arm"); del.textContent = "정말 삭제?";
+        timer = setTimeout(() => { del.classList.remove("arm"); del.textContent = "삭제"; }, 4000);
+        return;
+      }
+      clearTimeout(timer);
+      del.disabled = true; del.textContent = "삭제 중…";
+      try {
+        await rpc("delete_training_survey_response", { p_code: $("code").value.trim(), p_id: r.id });
+        rows = rows.filter((x) => x.id !== r.id);
+        if (rows.length) render(); else { $("out").hidden = true; $("status").textContent = "남은 응답이 없어요."; }
+      } catch (e) {
+        console.error(e);
+        del.disabled = false; del.classList.remove("arm"); del.textContent = "삭제";
+        alertStatus("삭제하지 못했어요. (" + (e.message || e) + ")");
+      }
+    };
+    li.append(txt, del, meta); return li;
   }));
+}
+
+function alertStatus(msg) {
+  $("status").textContent = msg; $("status").classList.add("warn");
+  $("login").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 async function load(code) {
@@ -145,7 +178,7 @@ async function load(code) {
     render();
   } catch (e) {
     console.error(e);
-    $("status").textContent = "불러오지 못했어요. 잠시 후 다시 시도해 주세요."; $("status").classList.add("warn");
+    $("status").textContent = "불러오지 못했어요. (" + (e.message || e) + ")"; $("status").classList.add("warn");
   }
 }
 
