@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>결과 · 연수 만족도 조사</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+.login { display: flex; gap: 8px; flex-wrap: wrap; }
+.login input { flex: 1; min-width: 160px; font: 400 15px var(--body); padding: 10px 12px; border-radius: 8px; border: 1.5px solid var(--line); background: var(--surface); color: var(--fg); }
+.login button { padding: 10px 18px; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.kpi .k { font-size: 12.5px; color: var(--muted); }
+.kpi .v { font-family: var(--display); font-size: 28px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kpi .v small { font-family: var(--body); font-size: 13px; color: var(--muted); }
+.row { display: grid; gap: 6px; padding: 12px 0; border-top: 1px solid var(--line); }
+.row:first-of-type { border-top: 0; }
+.row-top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.row-top .avg { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--accent); }
+.dist { display: flex; height: 14px; border-radius: 4px; overflow: hidden; background: var(--line); gap: 2px; }
+.dist i { display: block; height: 100%; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; background: var(--c); vertical-align: -1px; }
+.comments { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.comments li { background: var(--bg); border-radius: 8px; padding: 10px 12px; white-space: pre-wrap; }
+.comments time { display: block; font-size: 12px; color: var(--muted); margin-top: 4px; }
+.toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">결과 보기 (관리자용)</p>
+    <h1 id="title"></h1>
+  </header>
+
+  <form class="panel login" id="login">
+    <input id="code" type="password" placeholder="관리자 코드" autocomplete="current-password" aria-label="관리자 코드">
+    <button class="primary" type="submit">결과 보기</button>
+    <p class="status" id="status" role="status" style="width:100%"></p>
+  </form>
+
+  <div id="out" hidden style="display:grid;gap:22px">
+    <div class="toolbar">
+      <button class="ghost" id="reload" type="button">새로고침</button>
+      <button class="ghost" id="csv" type="button">CSV 내려받기</button>
+    </div>
+    <div class="kpis" id="kpis"></div>
+    <div class="legend" id="legend"></div>
+    <div id="sections" style="display:grid;gap:22px"></div>
+    <section class="panel" style="display:grid;gap:12px">
+      <h2>기타 의견 <small id="ccount" style="font-family:var(--body);font-size:13px;color:var(--muted)"></small></h2>
+      <ul class="comments" id="comments"></ul>
+    </section>
+  </div>
+</div>
+
+<script src="survey.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+$("title").textContent = SURVEY.title;
+const COLORS = ["#c0563a", "#e0a07a", "#c9c9bf", "#7db8a2", "#1f7a5c"];
+let rows = [];
+
+$("legend").replaceChildren(...SURVEY.scale.map((l, i) => {
+  const s = document.createElement("span"); s.style.setProperty("--c", COLORS[i]); s.textContent = `${i + 1} ${l}`; return s;
+}));
+
+const fmt = (x) => (isFinite(x) ? x.toFixed(2) : "–");
+const mean = (a) => a.length ? a.reduce((s, x) => s + x, 0) / a.length : NaN;
+
+function render() {
+  const n = rows.length;
+  let qi = 0;
+  const secMeans = [];
+  $("sections").replaceChildren(...SURVEY.sections.map((sec, si) => {
+    const box = document.createElement("section"); box.className = "panel";
+    const h = document.createElement("h2"); h.textContent = `${si + 1}. ${sec.title}`;
+    box.append(h);
+    const all = [];
+    sec.items.forEach((text, ii) => {
+      const idx = qi++;
+      const vals = rows.map((r) => r.scores[idx]);
+      all.push(...vals);
+      const row = document.createElement("div"); row.className = "row";
+      const top = document.createElement("div"); top.className = "row-top";
+      const t = document.createElement("span"); t.textContent = `${ii + 1}. ${text}`;
+      const a = document.createElement("span"); a.className = "avg"; a.textContent = fmt(mean(vals));
+      top.append(t, a);
+      const dist = document.createElement("div"); dist.className = "dist";
+      for (let v = 1; v <= 5; v++) {
+        const c = vals.filter((x) => x === v).length;
+        if (!c) continue;
+        const i = document.createElement("i");
+        i.style.flex = c; i.style.background = COLORS[v - 1];
+        i.title = `${SURVEY.scale[v - 1]}: ${c}명 (${Math.round(c / n * 100)}%)`;
+        dist.append(i);
+      }
+      row.append(top, dist);
+      box.append(row);
+    });
+    secMeans.push(mean(all));
+    return box;
+  }));
+
+  const overall = mean(rows.flatMap((r) => r.scores));
+  const kpi = (k, v, small) => {
+    const d = document.createElement("div"); d.className = "kpi";
+    const a = document.createElement("div"); a.className = "k"; a.textContent = k;
+    const b = document.createElement("div"); b.className = "v"; b.textContent = v;
+    if (small) { const s = document.createElement("small"); s.textContent = small; b.append(" ", s); }
+    d.append(a, b); return d;
+  };
+  $("kpis").replaceChildren(
+    kpi("응답 수", n, "명"),
+    kpi("전체 평균", fmt(overall), "/ 5"),
+    ...SURVEY.sections.map((s, i) => kpi(s.title, fmt(secMeans[i]), "/ 5")),
+  );
+
+  $("ccount").textContent = `(${n}건)`;
+  $("comments").replaceChildren(...rows.slice().reverse().map((r) => {
+    const li = document.createElement("li"); li.textContent = r.comment;
+    const tm = document.createElement("time"); tm.textContent = new Date(r.submitted_at).toLocaleString("ko-KR");
+    li.append(tm); return li;
+  }));
+}
+
+async function load(code) {
+  $("status").textContent = "불러오는 중…"; $("status").classList.remove("warn");
+  try {
+    const data = await rpc("training_survey_results", { p_code: code });
+    rows = data || [];
+    if (!rows.length) {
+      // 코드가 틀렸거나 아직 응답이 없을 때 모두 빈 목록이 옵니다.
+      $("status").textContent = "표시할 응답이 없어요. 코드가 맞는지 확인해 주세요(아직 응답이 없을 수도 있어요).";
+      $("status").classList.add("warn");
+      $("out").hidden = true; return;
+    }
+    try { sessionStorage.setItem("ts-code", code); } catch {}
+    $("status").textContent = "";
+    $("out").hidden = false;
+    render();
+  } catch (e) {
+    console.error(e);
+    $("status").textContent = "불러오지 못했어요. 잠시 후 다시 시도해 주세요."; $("status").classList.add("warn");
+  }
+}
+
+$("login").addEventListener("submit", (e) => { e.preventDefault(); const c = $("code").value.trim(); if (c) load(c); });
+$("reload").onclick = () => load($("code").value.trim());
+$("csv").onclick = () => {
+  const qs = SURVEY.sections.flatMap((s, si) => s.items.map((t, ii) => `${si + 1}-${ii + 1}. ${t}`));
+  const esc = (v) => `"${String(v).replace(/"/g, '""')}"`;
+  const lines = [["제출 시각", ...qs, "기타 의견"].map(esc).join(",")];
+  rows.forEach((r) => lines.push([new Date(r.submitted_at).toLocaleString("ko-KR"), ...r.scores, r.comment].map(esc).join(",")));
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "연수만족도_응답.csv"; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+
+let saved = null; try { saved = sessionStorage.getItem("ts-code"); } catch {}
+if (saved) { $("code").value = saved; load(saved); }
+</script>
+</body>
+</html>
