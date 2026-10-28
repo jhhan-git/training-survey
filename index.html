@@ -153,7 +153,7 @@ $("form").addEventListener("submit", async (e) => {
     showDone(true);
   } catch (err) {
     console.error(err);
-    setStatus("제출하지 못했어요. 인터넷 연결을 확인하고 다시 눌러 주세요.", true);
+    setStatus("제출하지 못했어요. 잠시 후 다시 눌러 주세요. (오류: " + (err.message || err) + ")", true);
   } finally {
     $("submit").disabled = false;
   }

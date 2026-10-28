@@ -44,7 +44,11 @@ async function rpc(fn, args) {
     headers: { apikey: SUPABASE_KEY, "Content-Type": "application/json" },
     body: JSON.stringify(args),
   });
-  if (!res.ok) throw new Error(`${fn} ${res.status}`);
+  if (!res.ok) {
+    let detail = "";
+    try { const j = await res.json(); detail = j.message || j.hint || JSON.stringify(j); } catch {}
+    throw new Error(`${res.status} ${detail}`.trim());
+  }
   const text = await res.text();
   return text ? JSON.parse(text) : null;
 }
