@@ -53,7 +53,7 @@ const $ = (id) => document.getElementById(id);
 const TOTAL = SURVEY.sections.reduce((n, s) => n + s.items.length, 0) + 1;
 
 // 이 브라우저를 구분하는 번호. 같은 기기에서 다시 제출하면 기존 응답이 고쳐집니다(중복 방지).
-const KEY = "training-survey-2026-1028";
+const KEY = SURVEY.key;
 let rid = null;
 try { rid = localStorage.getItem(KEY + ":id"); } catch {}
 if (!rid) {
@@ -147,7 +147,7 @@ $("form").addEventListener("submit", async (e) => {
   }
   $("submit").disabled = true; setStatus("제출 중…");
   try {
-    await rpc("submit_training_survey", { p_id: rid, p_scores: a.scores, p_comment: a.comment });
+    await rpc(SURVEY.api.submit, { p_id: rid, p_scores: a.scores, p_comment: a.comment });
     try { localStorage.setItem(KEY + ":done", "1"); } catch {}
     setStatus("");
     showDone(true);

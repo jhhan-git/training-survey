@@ -4,6 +4,8 @@ const SUPABASE_URL = "https://qipuagaqzvwghxuvulgr.supabase.co";
 const SUPABASE_KEY = "sb_publishable_DXM8lm6acAEJ0HBpBi-Fnw_GWzjE2qf";
 
 const SURVEY = {
+  key: "training-survey-2026-1028",
+  api: { submit: "submit_training_survey", results: "training_survey_results", remove: "delete_training_survey_response" },
   title: "상업교과교육연구회 공개 연수 만족도 조사",
   eyebrow: "2026학년도 교간형 전문적학습공동체",
   info: [
