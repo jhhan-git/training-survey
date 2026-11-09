@@ -6,7 +6,7 @@ const SUPABASE_KEY = "sb_publishable_DXM8lm6acAEJ0HBpBi-Fnw_GWzjE2qf";
 const SURVEY = {
   key: "training-survey-2026-1106",
   api: { submit: "submit_training_survey_1106", results: "training_survey_results_1106", remove: "delete_training_survey_response_1106" },
-  title: "상업교과교육연구회 공개 연수 만족도 조사",
+  title: "상업교과교육연구회 연합학술제 공개연수 만족도 조사",
   eyebrow: "2026학년도 교간형 전문적학습공동체",
   info: [
     ["공동체명", "상업교과교육연구회"],
