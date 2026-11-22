@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>회신 현황 · 창업체험활성화운영교 성과나눔</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: #EEF2F6; font-family: 'Noto Sans KR', system-ui, sans-serif; color: #0F172A; word-break: keep-all; }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 36px 20px 64px; display: flex; flex-direction: column; gap: 18px; }
+h1 { margin: 0; font-size: 26px; font-weight: 900; letter-spacing: -0.4px; }
+.eyebrow { margin: 0; font-size: 13px; font-weight: 700; color: #1F3A5F; }
+.card { background: #fff; border-radius: 16px; padding: 22px 24px; }
+.login { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.fld { flex: 1; min-width: 180px; height: 46px; padding: 0 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font: inherit; font-size: 16px; outline: none; }
+.fld:focus { border-color: #1F3A5F; box-shadow: 0 0 0 4px rgba(31,58,95,.14); }
+.btn { height: 46px; padding: 0 20px; border: none; border-radius: 10px; background: #1F3A5F; color: #fff; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.btn:hover { background: #142842; }
+.btn.ghost { background: #fff; color: #1F3A5F; border: 1.5px solid #CBD5E1; }
+.btn.ghost:hover { border-color: #1F3A5F; }
+.btn.danger { background: #fff; color: #B42318; border: 1.5px solid #F1C3BE; }
+.btn.danger:hover { background: #FEF3F2; }
+.btn:disabled { opacity: .55; cursor: default; }
+.status { margin: 0; width: 100%; font-size: 14px; color: #475569; min-height: 1.4em; }
+.status.warn { color: #B42318; }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.kpi { background: #fff; border-radius: 14px; padding: 16px 18px; }
+.kpi .k { font-size: 13px; font-weight: 700; color: #475569; }
+.kpi .v { font-size: 30px; font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1.25; }
+.kpi .v small { font-size: 14px; font-weight: 500; color: #475569; margin-left: 2px; }
+.toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.toolbar .sp { flex: 1; }
+.filter { display: flex; gap: 6px; }
+.filter button { height: 36px; padding: 0 14px; border-radius: 999px; border: 1.5px solid #CBD5E1; background: #fff; font: inherit; font-size: 14px; cursor: pointer; color: #334155; }
+.filter button[aria-pressed="true"] { background: #1F3A5F; border-color: #1F3A5F; color: #fff; }
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+th { text-align: left; font-size: 13px; font-weight: 700; color: #475569; padding: 10px 10px; border-bottom: 1.5px solid #E2E8F0; white-space: nowrap; }
+td { padding: 12px 10px; border-bottom: 1px solid #EEF2F6; vertical-align: top; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.tag { display: inline-block; font-size: 12.5px; font-weight: 700; border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
+.tag.yes { background: #E6F0FA; color: #1F3A5F; }
+.tag.no { background: #F1F5F9; color: #64748B; }
+.dup { display: inline-block; margin-left: 6px; font-size: 12px; font-weight: 700; color: #9A3412; background: #FDE7D2; border-radius: 999px; padding: 1px 8px; }
+.ppl { display: flex; flex-direction: column; gap: 2px; }
+.ppl span { white-space: nowrap; }
+.muted { color: #94A3B8; }
+.del { height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid #E2E8F0; background: #fff; font: inherit; font-size: 13px; color: #64748B; cursor: pointer; white-space: nowrap; }
+.del:hover { color: #B42318; border-color: #F1C3BE; }
+.del.arm { background: #B42318; border-color: #B42318; color: #fff; }
+.empty { text-align: center; color: #64748B; padding: 28px 0; }
+.purge { display: flex; flex-direction: column; gap: 10px; border: 1.5px solid #F1C3BE; }
+.purge h2 { margin: 0; font-size: 17px; }
+.purge p { margin: 0; font-size: 14px; color: #475569; line-height: 1.6; }
+.purge .row { display: flex; gap: 8px; flex-wrap: wrap; }
+.purge .fld { max-width: 220px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div>
+    <p class="eyebrow">관리자용 · 회신 현황</p>
+    <h1>2026 창업체험활성화운영교 성과나눔 참석 조사</h1>
+  </div>
+
+  <form class="card login" id="login">
+    <input id="code" class="fld" type="password" placeholder="관리자 코드" autocomplete="current-password" aria-label="관리자 코드">
+    <button class="btn" type="submit">회신 현황 보기</button>
+    <p class="status" id="status" role="status"></p>
+  </form>
+
+  <div id="out" hidden style="display:flex;flex-direction:column;gap:18px">
+    <div class="kpis" id="kpis"></div>
+
+    <section class="card" style="display:flex;flex-direction:column;gap:14px">
+      <div class="toolbar">
+        <div class="filter" role="group" aria-label="보기">
+          <button type="button" data-f="all" aria-pressed="true">전체</button>
+          <button type="button" data-f="yes" aria-pressed="false">참석</button>
+          <button type="button" data-f="no" aria-pressed="false">불참</button>
+        </div>
+        <span class="sp"></span>
+        <button class="btn ghost" id="reload" type="button">새로고침</button>
+        <button class="btn ghost" id="csv" type="button">CSV 내려받기</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>학교명</th><th>참석</th><th>참석자 · 연락처</th><th>회신 시각</th><th></th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="status" style="font-size:13px">같은 학교가 두 번 이상 회신하면 <span class="dup">중복</span> 표시가 붙어요. 잘못 들어온 회신은 '삭제'를 두 번 눌러 지울 수 있습니다.</p>
+    </section>
+
+    <section class="card purge">
+      <h2>행사 후 개인정보 전체 파기</h2>
+      <p>안내문에 "행사 종료 후 즉시 파기"로 적혀 있어요. 필요한 자료를 CSV로 받아 두신 뒤, 아래 칸에 <b>파기</b>라고 입력하고 버튼을 누르면 모든 회신이 지워집니다. 지운 회신은 되살릴 수 없어요.</p>
+      <div class="row">
+        <input id="purge-word" class="fld" type="text" placeholder="파기" aria-label="확인 문구 입력">
+        <button class="btn danger" id="purge" type="button" disabled>모든 회신 파기</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+let rows = [], filter = "all";
+const SKEY = "startup-attend-2026-1203:code";
+
+const norm = (s) => String(s || "").replace(/\s+/g, "").replace(/인천/g, "").toLowerCase();
+const fmtTime = (t) => new Date(t).toLocaleString("ko-KR", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+
+function setStatus(msg, warn) { $("status").textContent = msg; $("status").classList.toggle("warn", !!warn); }
+
+function render() {
+  const yes = rows.filter((r) => r.attend), no = rows.filter((r) => !r.attend);
+  const people = yes.reduce((n, r) => n + (r.name1 ? 1 : 0) + (r.name2 ? 1 : 0), 0);
+  const kpi = (k, v, unit) => {
+    const d = document.createElement("div"); d.className = "kpi";
+    const a = document.createElement("div"); a.className = "k"; a.textContent = k;
+    const b = document.createElement("div"); b.className = "v"; b.textContent = v;
+    const s = document.createElement("small"); s.textContent = unit; b.append(s);
+    d.append(a, b); return d;
+  };
+  $("kpis").replaceChildren(kpi("회신 학교", rows.length, "개교"), kpi("참석 학교", yes.length, "개교"), kpi("참석 인원", people, "명"), kpi("불참 학교", no.length, "개교"));
+
+  const counts = {};
+  rows.forEach((r) => { const k = norm(r.school); counts[k] = (counts[k] || 0) + 1; });
+  const shown = rows.filter((r) => filter === "all" || (filter === "yes") === r.attend);
+  if (!shown.length) {
+    const tr = document.createElement("tr"); const td = document.createElement("td");
+    td.colSpan = 6; td.className = "empty"; td.textContent = rows.length ? "이 조건에 맞는 회신이 없어요." : "아직 회신이 없어요.";
+    tr.append(td); $("rows").replaceChildren(tr); return;
+  }
+  $("rows").replaceChildren(...shown.map((r, i) => {
+    const tr = document.createElement("tr");
+    const c0 = document.createElement("td"); c0.className = "num muted"; c0.textContent = i + 1;
+    const c1 = document.createElement("td"); c1.textContent = r.school;
+    if (counts[norm(r.school)] > 1) { const d = document.createElement("span"); d.className = "dup"; d.textContent = "중복"; c1.append(d); }
+    const c2 = document.createElement("td");
+    const tag = document.createElement("span"); tag.className = "tag " + (r.attend ? "yes" : "no"); tag.textContent = r.attend ? "참석" : "불참"; c2.append(tag);
+    const c3 = document.createElement("td");
+    if (r.attend) {
+      const box = document.createElement("div"); box.className = "ppl";
+      [[r.name1, r.phone1], [r.name2, r.phone2]].filter(([n]) => n).forEach(([n, p]) => {
+        const s = document.createElement("span"); s.textContent = `${n} · ${p}`; box.append(s);
+      });
+      c3.append(box);
+    } else { c3.className = "muted"; c3.textContent = "—"; }
+    const c4 = document.createElement("td"); c4.className = "num"; c4.textContent = fmtTime(r.submitted_at);
+    const c5 = document.createElement("td");
+    const del = document.createElement("button"); del.type = "button"; del.className = "del"; del.textContent = "삭제";
+    let timer = null;
+    del.onclick = async () => {
+      if (!del.classList.contains("arm")) {
+        del.classList.add("arm"); del.textContent = "정말 삭제?";
+        timer = setTimeout(() => { del.classList.remove("arm"); del.textContent = "삭제"; }, 4000);
+        return;
+      }
+      clearTimeout(timer); del.disabled = true; del.textContent = "삭제 중…";
+      try {
+        await rpc("delete_startup_attend_response", { p_code: $("code").value.trim(), p_id: r.id });
+        rows = rows.filter((x) => x.id !== r.id); render();
+      } catch (e) {
+        console.error(e); del.disabled = false; del.classList.remove("arm"); del.textContent = "삭제";
+        setStatus("삭제하지 못했어요. (" + (e.message || e) + ")", true);
+        $("login").scrollIntoView({ behavior: "smooth" });
+      }
+    };
+    c5.append(del);
+    tr.append(c0, c1, c2, c3, c4, c5); return tr;
+  }));
+}
+
+async function load(code) {
+  setStatus("불러오는 중…");
+  try {
+    rows = (await rpc("startup_attend_results", { p_code: code })) || [];
+    try { sessionStorage.setItem(SKEY, code); } catch {}
+    setStatus(rows.length ? "" : "아직 회신이 없거나 코드가 맞지 않아요. 코드를 확인해 주세요.", !rows.length);
+    $("out").hidden = !rows.length && !$("out").dataset.opened;
+    if (rows.length) $("out").dataset.opened = "1";
+    render();
+  } catch (e) {
+    console.error(e); setStatus("불러오지 못했어요. (" + (e.message || e) + ")", true);
+  }
+}
+
+$("login").addEventListener("submit", (e) => { e.preventDefault(); const c = $("code").value.trim(); if (c) load(c); });
+$("reload").onclick = () => load($("code").value.trim());
+document.querySelectorAll(".filter button").forEach((b) => b.onclick = () => {
+  filter = b.dataset.f;
+  document.querySelectorAll(".filter button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+  render();
+});
+
+$("csv").onclick = () => {
+  const esc = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = [["학교명", "참석 여부", "참석자1 성명", "참석자1 연락처", "참석자2 성명", "참석자2 연락처", "회신 시각"].map(esc).join(",")];
+  rows.forEach((r) => lines.push([r.school, r.attend ? "참석" : "불참", r.name1, r.phone1, r.name2, r.phone2, new Date(r.submitted_at).toLocaleString("ko-KR")].map(esc).join(",")));
+  const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "성과나눔_참석회신.csv"; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+
+$("purge-word").addEventListener("input", (e) => { $("purge").disabled = e.target.value.trim() !== "파기"; });
+$("purge").onclick = async () => {
+  $("purge").disabled = true; $("purge").textContent = "파기 중…";
+  try {
+    const n = await rpc("purge_startup_attend", { p_code: $("code").value.trim() });
+    rows = []; render(); $("purge-word").value = "";
+    setStatus(`회신 ${n}건을 모두 파기했어요.`);
+    $("login").scrollIntoView({ behavior: "smooth" });
+  } catch (e) {
+    console.error(e); setStatus("파기하지 못했어요. (" + (e.message || e) + ")", true);
+  } finally { $("purge").textContent = "모든 회신 파기"; }
+};
+
+let saved = null; try { saved = sessionStorage.getItem(SKEY); } catch {}
+if (saved) { $("code").value = saved; load(saved); }
+</script>
+</body>
+</html>

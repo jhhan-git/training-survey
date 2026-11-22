@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026 창업체험활성화운영교 성과나눔 참석 조사</title>
+<meta name="description" content="2026. 12. 3.(목) 15:30 경원재 · 11월 26일(목)까지 회신해 주세요">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: #EEF2F6; font-family: 'Noto Sans KR', system-ui, sans-serif; color: #0F172A; word-break: keep-all; }
+a { color: #1F3A5F; } a:hover { color: #142842; }
+.page { min-height: 100vh; padding: 48px 20px 72px; display: flex; flex-direction: column; align-items: center; }
+.wrap { width: 100%; max-width: 720px; display: flex; flex-direction: column; gap: 20px; }
+
+.hero { background: #1F3A5F; color: #fff; border-radius: 20px; padding: 36px 36px 32px; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
+.hero .c1 { position: absolute; right: -40px; top: -40px; width: 180px; height: 180px; border-radius: 50%; background: #2C4F7C; }
+.hero .c2 { position: absolute; right: 60px; bottom: -70px; width: 120px; height: 120px; border-radius: 50%; background: #E8A33B; }
+.hero > p, .hero > h1 { position: relative; margin: 0; }
+.hero .org { font-size: 14px; font-weight: 500; color: #D6E0EC; }
+.hero h1 { font-size: 30px; line-height: 1.35; font-weight: 900; letter-spacing: -0.5px; }
+.hero .lede { font-size: 16px; line-height: 1.7; color: #E2E8F0; max-width: 520px; }
+
+.card { background: #fff; border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+.info { padding: 24px 28px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; }
+.info div { display: flex; flex-direction: column; gap: 4px; }
+.info .k { font-size: 13px; font-weight: 700; color: #475569; }
+.info .v { font-size: 16px; font-weight: 500; }
+
+.qt { margin: 0; display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; }
+.num { width: 28px; height: 28px; border-radius: 8px; background: #1F3A5F; color: #fff; font-size: 14px; display: flex; align-items: center; justify-content: center; flex: none; }
+.req { color: #C2410C; }
+.sub { margin: 0 0 0 38px; font-size: 14px; color: #475569; }
+
+.fld { width: 100%; height: 48px; padding: 0 14px; border: 1.5px solid #CBD5E1; border-radius: 10px; font: inherit; font-size: 16px; color: #0F172A; background: #fff; outline: none; }
+.fld::placeholder { color: #64748B; }
+.fld:focus { border-color: #1F3A5F; box-shadow: 0 0 0 4px rgba(31,58,95,.14); }
+.fld.bad { border-color: #C2410C; }
+
+.opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.opt { position: relative; cursor: pointer; }
+.opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.opt .box { display: flex; flex-direction: column; gap: 4px; min-height: 84px; padding: 18px 20px; border-radius: 12px; border: 2px solid #E2E8F0; background: #fff; }
+.opt input:checked + .box { border-color: #1F3A5F; background: #EEF3F9; }
+.opt input:focus-visible + .box { outline: 3px solid #1F3A5F; outline-offset: 3px; }
+.opt .t { font-size: 17px; font-weight: 700; }
+.opt .d { font-size: 14px; color: #475569; }
+
+.person { border: 1.5px solid #E2E8F0; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+.person.opt2 { border-style: dashed; border-color: #CBD5E1; }
+.person .h { display: flex; align-items: center; gap: 8px; }
+.person .h b { font-size: 15px; }
+.pill { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 3px 10px; }
+.pill.must { color: #7C2D12; background: #FDE7D2; }
+.pill.may { color: #334155; background: #E2E8F0; }
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.two > div { display: flex; flex-direction: column; gap: 6px; }
+.two label { font-size: 14px; font-weight: 500; color: #334155; }
+
+.terms { background: #F8FAFC; border-radius: 12px; padding: 18px 20px; display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 10px 16px; font-size: 14px; line-height: 1.6; color: #334155; }
+.terms b { font-weight: 700; }
+.note { margin: 0; font-size: 13px; line-height: 1.6; color: #475569; }
+.agree { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 16px; border: 1.5px solid #CBD5E1; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: 500; }
+.agree.bad { border-color: #C2410C; }
+.chk { width: 22px; height: 22px; accent-color: #1F3A5F; margin: 0; flex: none; }
+
+.btn { height: 56px; border: none; border-radius: 12px; background: #1F3A5F; color: #fff; font: inherit; font-size: 17px; font-weight: 700; cursor: pointer; }
+.btn:hover { background: #142842; }
+.btn:focus-visible { outline: 3px solid #E8A33B; outline-offset: 3px; }
+.btn:disabled { opacity: .6; cursor: default; }
+.btn.ghost { height: 48px; padding: 0 24px; border: 1.5px solid #1F3A5F; background: #fff; color: #1F3A5F; font-size: 15px; }
+.btn.ghost:hover { background: #EEF3F9; }
+.err { margin: 0; font-size: 14px; color: #C2410C; min-height: 1.4em; text-align: center; }
+.foot { margin: 0; text-align: center; font-size: 13px; color: #475569; }
+
+.done { padding: 56px 32px; align-items: center; gap: 16px; text-align: center; }
+.done .ic { width: 64px; height: 64px; border-radius: 50%; background: #E6F0FA; display: flex; align-items: center; justify-content: center; }
+.done h2 { margin: 0; font-size: 24px; font-weight: 700; }
+.done p { margin: 0; font-size: 16px; line-height: 1.7; color: #475569; }
+.done .sum { font-size: 15px; color: #0F172A; background: #F8FAFC; border-radius: 10px; padding: 12px 16px; }
+
+@media (max-width: 520px) {
+  .page { padding: 20px 14px 48px; }
+  .hero { padding: 28px 24px 26px; }
+  .hero h1 { font-size: 25px; }
+  .card { padding: 22px 20px; }
+  .info { grid-template-columns: 1fr 1fr; padding: 20px; }
+  .two { grid-template-columns: 1fr; }
+  .sub { margin-left: 0; }
+  .terms { grid-template-columns: 72px minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="page"><div class="wrap">
+
+  <header class="hero">
+    <div class="c1" aria-hidden="true"></div><div class="c2" aria-hidden="true"></div>
+    <p class="org">인천광역시교육청 진로진학직업교육과</p>
+    <h1>2026 창업체험활성화운영교<br>성과나눔 참석 조사</h1>
+    <p class="lede">한 해 동안 창업체험교육을 위해 애써 주신 운영교 선생님들께 감사드립니다. 올해의 성과를 함께 나누는 자리에 참석 여부를 회신해 주세요.</p>
+  </header>
+
+  <section class="card info" aria-label="행사 안내">
+    <div><span class="k">일시</span><span class="v">2026. 12. 3.(목) 15:30</span></div>
+    <div><span class="k">장소</span><span class="v">경원재</span></div>
+    <div><span class="k">대상</span><span class="v">운영교 담당 교사(학교당 최대 2명)</span></div>
+    <div><span class="k">회신 기한</span><span class="v">11월 26일(목)까지</span></div>
+  </section>
+
+  <section class="card done" id="done" hidden>
+    <div class="ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1F3A5F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h2>회신해 주셔서 감사합니다</h2>
+    <p class="sum" id="sum"></p>
+    <p>제출하신 내용은 행사 참석 확인과 안내에만 사용됩니다.<br>성과나눔 자리에서 뵙겠습니다.</p>
+    <button type="button" class="btn ghost" id="edit">회신 내용 수정하기</button>
+  </section>
+
+  <form id="form" novalidate style="display:flex;flex-direction:column;gap:20px">
+    <section class="card">
+      <label for="school" class="qt"><span class="num">1</span>학교명 <span class="req" aria-hidden="true">*</span></label>
+      <input id="school" class="fld" type="text" placeholder="예: 인천○○고등학교" maxlength="100" autocomplete="organization">
+    </section>
+
+    <section class="card">
+      <p class="qt" id="attend-label"><span class="num">2</span>참석 여부 <span class="req" aria-hidden="true">*</span></p>
+      <div class="opts" role="radiogroup" aria-labelledby="attend-label">
+        <label class="opt"><input type="radio" name="attend" value="yes" checked><span class="box"><span class="t">참석</span><span class="d">참석자 명단을 적어 주세요</span></span></label>
+        <label class="opt"><input type="radio" name="attend" value="no"><span class="box"><span class="t">불참</span><span class="d">다음 기회에 함께해요</span></span></label>
+      </div>
+    </section>
+
+    <section class="card" id="people" style="gap:18px">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <p class="qt"><span class="num">3</span>참석자 명단 및 연락처 <span class="req" aria-hidden="true">*</span></p>
+        <p class="sub">학교당 최대 2명까지 적을 수 있습니다.</p>
+      </div>
+      <div class="person">
+        <div class="h"><b>참석자 1</b><span class="pill must">필수</span></div>
+        <div class="two">
+          <div><label for="n1">성명</label><input id="n1" class="fld" type="text" placeholder="홍길동" maxlength="50" autocomplete="name"></div>
+          <div><label for="p1">연락처(휴대전화)</label><input id="p1" class="fld" type="tel" inputmode="numeric" placeholder="010-0000-0000" autocomplete="tel"></div>
+        </div>
+      </div>
+      <div class="person opt2">
+        <div class="h"><b>참석자 2</b><span class="pill may">선택</span></div>
+        <div class="two">
+          <div><label for="n2">성명</label><input id="n2" class="fld" type="text" placeholder="홍길동" maxlength="50"></div>
+          <div><label for="p2">연락처(휴대전화)</label><input id="p2" class="fld" type="tel" inputmode="numeric" placeholder="010-0000-0000"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="gap:16px">
+      <p class="qt"><span class="num" id="consent-no">4</span>개인정보 수집·이용 동의 <span class="req" aria-hidden="true">*</span></p>
+      <div class="terms">
+        <b>수집 항목</b><span>성명, 연락처</span>
+        <b>수집 목적</b><span>행사 참석 확인 및 안내</span>
+        <b>보유 기간</b><span>행사 종료 후 즉시 파기</span>
+      </div>
+      <p class="note">개인정보 수집·이용에 동의하지 않을 수 있으며, 동의하지 않을 경우 참석 신청이 제한될 수 있습니다.</p>
+      <label for="agree" class="agree" id="agree-box"><input id="agree" class="chk" type="checkbox">개인정보 수집·이용에 동의합니다.</label>
+    </section>
+
+    <button type="submit" class="btn" id="submit">제출하기</button>
+    <p class="err" id="err" role="alert"></p>
+    <p class="foot">문의: 진로진학직업교육과 직업교육팀 010-2699-6442</p>
+  </form>
+
+</div></div>
+
+<script src="api.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const KEY = "startup-attend-2026-1203";
+const store = {
+  get(k) { try { return localStorage.getItem(KEY + ":" + k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(KEY + ":" + k, v); } catch {} },
+};
+let rid = store.get("id");
+if (!rid) {
+  rid = crypto.randomUUID ? crypto.randomUUID()
+    : "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16));
+  store.set("id", rid);
+}
+
+const attending = () => document.querySelector('input[name="attend"]:checked').value === "yes";
+function syncAttend() {
+  const yes = attending();
+  $("people").hidden = !yes;
+  $("consent-no").textContent = yes ? "4" : "3";
+}
+document.querySelectorAll('input[name="attend"]').forEach((r) => r.addEventListener("change", () => { syncAttend(); saveDraft(); }));
+
+["p1", "p2"].forEach((id) => $(id).addEventListener("input", (e) => {
+  const el = e.target, end = el.selectionStart === el.value.length;
+  el.value = formatPhone(el.value);
+  if (end) el.selectionStart = el.selectionEnd = el.value.length;
+}));
+document.querySelectorAll(".fld").forEach((el) => el.addEventListener("input", () => { el.classList.remove("bad"); saveDraft(); }));
+$("agree").addEventListener("change", () => $("agree-box").classList.remove("bad"));
+
+function values() {
+  const v = (id) => $(id).value.trim();
+  return { school: v("school"), attend: attending(), n1: v("n1"), p1: v("p1"), n2: v("n2"), p2: v("p2"), consent: $("agree").checked };
+}
+function saveDraft() {
+  const { consent, ...rest } = values();
+  store.set("draft", JSON.stringify(rest));
+}
+function loadDraft() {
+  let d = null; try { d = JSON.parse(store.get("draft") || "null"); } catch {}
+  if (!d) return;
+  ["school", "n1", "p1", "n2", "p2"].forEach((k) => { if (d[k]) $(k).value = d[k]; });
+  document.querySelector(`input[name="attend"][value="${d.attend === false ? "no" : "yes"}"]`).checked = true;
+}
+
+function validate(a) {
+  const bad = [];
+  if (!a.school) bad.push(["school", "학교명을 적어 주세요."]);
+  if (a.attend) {
+    if (!a.n1) bad.push(["n1", "참석자 1의 성명을 적어 주세요."]);
+    if (!PHONE_RE.test(a.p1)) bad.push(["p1", "참석자 1의 휴대전화 번호를 010-0000-0000 형식으로 적어 주세요."]);
+    if (a.n2 || a.p2) {
+      if (!a.n2) bad.push(["n2", "참석자 2의 성명도 적어 주세요."]);
+      if (!PHONE_RE.test(a.p2)) bad.push(["p2", "참석자 2의 휴대전화 번호를 010-0000-0000 형식으로 적어 주세요."]);
+    }
+  }
+  if (!a.consent) bad.push(["agree", "개인정보 수집·이용에 동의해 주세요."]);
+  return bad;
+}
+
+$("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const a = values();
+  const bad = validate(a);
+  document.querySelectorAll(".fld.bad").forEach((el) => el.classList.remove("bad"));
+  $("agree-box").classList.remove("bad");
+  if (bad.length) {
+    bad.forEach(([id]) => (id === "agree" ? $("agree-box") : $(id)).classList.add("bad"));
+    $("err").textContent = bad[0][1];
+    const first = bad[0][0] === "agree" ? $("agree-box") : $(bad[0][0]);
+    first.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (first.focus) first.focus({ preventScroll: true });
+    return;
+  }
+  $("submit").disabled = true; $("submit").textContent = "제출 중…"; $("err").textContent = "";
+  try {
+    await rpc("submit_startup_attend", {
+      p_id: rid, p_school: a.school, p_attend: a.attend,
+      p_name1: a.attend ? a.n1 : null, p_phone1: a.attend ? a.p1 : null,
+      p_name2: a.attend && a.n2 ? a.n2 : null, p_phone2: a.attend && a.p2 ? a.p2 : null,
+      p_consent: true,
+    });
+    store.set("done", "1");
+    showDone(true);
+  } catch (err) {
+    console.error(err);
+    $("err").textContent = "제출하지 못했어요. 잠시 후 다시 눌러 주세요. (오류: " + (err.message || err) + ")";
+  } finally {
+    $("submit").disabled = false; $("submit").textContent = "제출하기";
+  }
+});
+
+function showDone(on) {
+  if (on) {
+    const a = values();
+    const who = [a.n1, a.n2].filter(Boolean).join(", ");
+    $("sum").textContent = a.school ? `${a.school} · ${a.attend ? "참석 (" + who + ")" : "불참"}` : "";
+    $("sum").hidden = !a.school;
+  }
+  $("form").hidden = on; $("done").hidden = !on;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+$("edit").onclick = () => { $("agree").checked = false; showDone(false); };
+
+loadDraft(); syncAttend();
+if (store.get("done") === "1") showDone(true);
+</script>
+</body>
+</html>
