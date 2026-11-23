@@ -153,8 +153,8 @@ a { color: #1F3A5F; } a:hover { color: #142842; }
       </div>
     </section>
 
-    <section class="card" style="gap:16px">
-      <p class="qt"><span class="num" id="consent-no">4</span>개인정보 수집·이용 동의 <span class="req" aria-hidden="true">*</span></p>
+    <section class="card" id="consent-sec" style="gap:16px">
+      <p class="qt"><span class="num">4</span>개인정보 수집·이용 동의 <span class="req" aria-hidden="true">*</span></p>
       <div class="terms">
         <b>수집 항목</b><span>성명, 연락처</span>
         <b>수집 목적</b><span>행사 참석 확인 및 안내</span>
@@ -190,7 +190,7 @@ const attending = () => document.querySelector('input[name="attend"]:checked').v
 function syncAttend() {
   const yes = attending();
   $("people").hidden = !yes;
-  $("consent-no").textContent = yes ? "4" : "3";
+  $("consent-sec").hidden = !yes; // 불참이면 개인정보를 받지 않으므로 동의 항목도 숨김
 }
 document.querySelectorAll('input[name="attend"]').forEach((r) => r.addEventListener("change", () => { syncAttend(); saveDraft(); }));
 
@@ -228,7 +228,7 @@ function validate(a) {
       if (!PHONE_RE.test(a.p2)) bad.push(["p2", "참석자 2의 휴대전화 번호를 010-0000-0000 형식으로 적어 주세요."]);
     }
   }
-  if (!a.consent) bad.push(["agree", "개인정보 수집·이용에 동의해 주세요."]);
+  if (a.attend && !a.consent) bad.push(["agree", "개인정보 수집·이용에 동의해 주세요."]);
   return bad;
 }
 
@@ -252,7 +252,7 @@ $("form").addEventListener("submit", async (e) => {
       p_id: rid, p_school: a.school, p_attend: a.attend,
       p_name1: a.attend ? a.n1 : null, p_phone1: a.attend ? a.p1 : null,
       p_name2: a.attend && a.n2 ? a.n2 : null, p_phone2: a.attend && a.p2 ? a.p2 : null,
-      p_consent: true,
+      p_consent: a.attend,
     });
     store.set("done", "1");
     showDone(true);

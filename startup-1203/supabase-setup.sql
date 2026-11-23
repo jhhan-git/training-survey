@@ -10,12 +10,14 @@ create table if not exists public.startup_attend_responses (
   phone1        text check (phone1 is null or phone1 ~ '^01[0-9]-[0-9]{3,4}-[0-9]{4}$'),
   name2         text check (name2 is null or char_length(name2) <= 50),
   phone2        text check (phone2 is null or phone2 ~ '^01[0-9]-[0-9]{3,4}-[0-9]{4}$'),
-  consent       boolean not null check (consent),
+  consent       boolean not null,
   submitted_at  timestamptz not null default now(),
   -- 참석이면 참석자 1 필수, 불참이면 명단 없음, 참석자 2는 이름·연락처를 함께
   check ((attend and name1 is not null and phone1 is not null)
          or (not attend and name1 is null and phone1 is null and name2 is null and phone2 is null)),
-  check ((name2 is null) = (phone2 is null))
+  check ((name2 is null) = (phone2 is null)),
+  -- 참석(개인정보 수집)일 때만 동의 필수
+  constraint startup_attend_consent_if_attend check (consent or not attend)
 );
 alter table public.startup_attend_responses enable row level security;
 revoke all on public.startup_attend_responses from anon, authenticated;
